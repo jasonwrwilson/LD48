@@ -6,8 +6,14 @@ public class DudeController : MonoBehaviour
 {
     private Rigidbody2D dudeRigidBody;
 
-    public float moveForce;
-    public float maxSpeed;
+    public float moveSpeed;
+    public float jumpSpeed;
+
+    public float waterMoveSpeed;
+    public float waterJumpSpeed;
+
+    private bool isOnGround = true;
+    private bool isUnderWater = false;
     
     // Start is called before the first frame update
     void Start()
@@ -24,20 +30,67 @@ public class DudeController : MonoBehaviour
     // Physics Update
     private void FixedUpdate()
     {
-        Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        if (movementInput.magnitude == 0)
+        if (isUnderWater)
         {
-            dudeRigidBody.velocity = new Vector2(0, 0);
+            dudeRigidBody.gravityScale = 0.25f;
+
+            Vector2 movementInput = dudeRigidBody.velocity;
+
+            //Jumping
+            float jumpMovement = Input.GetAxis("Jump");
+
+            if (jumpMovement != 0)
+            {
+                movementInput.y = jumpMovement * waterJumpSpeed;
+            }
+
+            //Running
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            movementInput.x = horizontalMovement * waterMoveSpeed;
+
+            dudeRigidBody.velocity = movementInput;
         }
         else
         {
+            dudeRigidBody.gravityScale = 1;
 
-            dudeRigidBody.AddForce(movementInput * moveForce);
+            Vector2 movementInput = dudeRigidBody.velocity;
 
-            if (Mathf.Abs(dudeRigidBody.velocity.magnitude) > maxSpeed)
+            //Jumping
+            float jumpMovement = Input.GetAxis("Jump");
+
+            if (jumpMovement != 0 && isOnGround)
             {
-                dudeRigidBody.velocity = dudeRigidBody.velocity.normalized * maxSpeed;
+                isOnGround = false;
+                movementInput.y = jumpMovement * jumpSpeed;
+            }
+
+
+            //Running
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            movementInput.x = horizontalMovement * moveSpeed;
+
+            dudeRigidBody.velocity = movementInput;
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        DeepTile collidingTile = collision.gameObject.GetComponent<DeepTile>();
+
+        if (collidingTile != null)
+        {
+            if (collidingTile.isWater)
+            {
+                isUnderWater = true;
+            }
+            else if (collidingTile.isAir)
+            {
+                isUnderWater = false;
+            }
+            else
+            {
+                isOnGround = true;
             }
         }
     }
