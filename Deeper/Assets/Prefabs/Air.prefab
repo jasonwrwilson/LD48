@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWater: 0
+  isAir: 1
 --- !u!1 &4025111262912314259
 GameObject:
   m_ObjectHideFlags: 0
