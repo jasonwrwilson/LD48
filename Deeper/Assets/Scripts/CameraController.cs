@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject followTarget;
+    
     // Use this for initialization
     void Start()
     {
