@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DeepDude-FacingRight
+  m_Name: DeepFish-Swimming
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 7271297175311882220, guid: 37e573c1d30a6504b879c86a4f9b6a26,
+      value: {fileID: -2725550210626426292, guid: e069336568260394ba231e247c24093e,
         type: 3}
     - time: 0.16666667
-      value: {fileID: -8893626922563404477, guid: 37e573c1d30a6504b879c86a4f9b6a26,
+      value: {fileID: 7945489328545106538, guid: e069336568260394ba231e247c24093e,
         type: 3}
     - time: 0.33333334
-      value: {fileID: 7271297175311882220, guid: 37e573c1d30a6504b879c86a4f9b6a26,
+      value: {fileID: -2725550210626426292, guid: e069336568260394ba231e247c24093e,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -47,9 +47,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 7271297175311882220, guid: 37e573c1d30a6504b879c86a4f9b6a26, type: 3}
-    - {fileID: -8893626922563404477, guid: 37e573c1d30a6504b879c86a4f9b6a26, type: 3}
-    - {fileID: 7271297175311882220, guid: 37e573c1d30a6504b879c86a4f9b6a26, type: 3}
+    - {fileID: -2725550210626426292, guid: e069336568260394ba231e247c24093e, type: 3}
+    - {fileID: 7945489328545106538, guid: e069336568260394ba231e247c24093e, type: 3}
+    - {fileID: -2725550210626426292, guid: e069336568260394ba231e247c24093e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

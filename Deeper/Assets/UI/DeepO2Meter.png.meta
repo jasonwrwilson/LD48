@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 37e573c1d30a6504b879c86a4f9b6a26
+guid: 993605a357a6d0b46ba65ac6d91f1c0f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5247629183668269525
-    second: DeepDude_0
+      213: -8049808266278807142
+    second: DeepO2Meter_0
   - first:
-      213: -4475897191631168868
-    second: DeepDude_1
+      213: 3262421381956485990
+    second: DeepO2Meter_1
   - first:
-      213: 7271297175311882220
-    second: DeepDude_2
-  - first:
-      213: -8893626922563404477
-    second: DeepDude_3
+      213: 5690779813784441657
+    second: DeepO2Meter_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -54,12 +51,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -111,55 +108,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DeepDude_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d1358d70f253d840800000000000000
-      internalID: 5247629183668269525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DeepDude_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9ad7a1f73b62e1c0800000000000000
-      internalID: -4475897191631168868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DeepDude_2
+      name: DeepO2Meter_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 8
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +122,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce714c68146d8e460800000000000000
-      internalID: 7271297175311882220
+      spriteID: a99d2721806594090800000000000000
+      internalID: -8049808266278807142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DeepDude_3
+      name: DeepO2Meter_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 8
         y: 0
-        width: 32
-        height: 32
+        width: 8
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34df1c33f6d739480800000000000000
-      internalID: -8893626922563404477
+      spriteID: 933d59fe616b9fe40800000000000000
+      internalID: 5690779813784441657
       vertices: []
       indices: 
       edges: []
