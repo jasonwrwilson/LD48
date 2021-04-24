@@ -8,6 +8,7 @@ public class DudeController : MonoBehaviour
 
     public float moveSpeed;
     public float jumpSpeed;
+    public float maxFallSpeed;
 
     public float waterMoveSpeed;
     public float waterJumpSpeed;
@@ -31,6 +32,8 @@ public class DudeController : MonoBehaviour
     private float currentOxygen;
     public float startingOxygen;
     public float oxygenRate;
+
+    private int coins = 1000;
 
     private enum SpriteAnimationState
     {
@@ -162,6 +165,11 @@ public class DudeController : MonoBehaviour
                 }
             }
 
+            if ( movementInput.y < -maxFallSpeed )
+            {
+                movementInput.y = -maxFallSpeed;
+            }
+
             dudeRigidBody.velocity = movementInput;
 
         }
@@ -241,6 +249,11 @@ public class DudeController : MonoBehaviour
                         spriteRenderer.flipX = true;
                     }
                 }
+            }
+
+            if (movementInput.y < -maxFallSpeed)
+            {
+                movementInput.y = -maxFallSpeed;
             }
 
             dudeRigidBody.velocity = movementInput;
@@ -333,5 +346,24 @@ public class DudeController : MonoBehaviour
                 currentHealth = 0;
             }
         }
+    }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
+
+    public void SpendCoins(int amount)
+    {
+        coins -= amount;
+        if ( coins < 0 )
+        {
+            coins = 0;
+        }
+    }
+
+    public void EarnCoins(int amount)
+    {
+        coins += amount;
     }
 }

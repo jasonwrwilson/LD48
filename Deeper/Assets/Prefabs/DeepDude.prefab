@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   jumpSpeed: 5
+  maxFallSpeed: 4
   waterMoveSpeed: 0
   waterJumpSpeed: 0
   spriteAnimator: {fileID: 4816281798746427017}
