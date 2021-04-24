@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2107280929249627986}
   - component: {fileID: 2107280929249627987}
+  - component: {fileID: 4816281798746427017}
   m_Layer: 0
   m_Name: DudeSprite
   m_TagString: Untagged
@@ -70,7 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37e573c1d30a6504b879c86a4f9b6a26, type: 3}
+  m_Sprite: {fileID: -4475897191631168868, guid: 37e573c1d30a6504b879c86a4f9b6a26,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4816281798746427017
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107280929249627988}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0754b486f689b8e4e90872eb0f25038d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2107280930056427888
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   jumpSpeed: 4
+  waterMoveSpeed: 0
+  waterJumpSpeed: 0
+  spriteAnimator: {fileID: 4816281798746427017}
+  spriteRenderer: {fileID: 2107280929249627987}
 --- !u!50 &2107280930056428172
 Rigidbody2D:
   serializedVersion: 4
