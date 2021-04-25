@@ -34,6 +34,7 @@ public class TileManager : MonoBehaviour
     private DeepTile[,] tileMapTiles;
     private int[,] enemyMap;
     private DeepCreature[,] enemyMapCreatures;
+    private List<TreasureChest> treasureChests;
 
     private int[,] airChamber = {
                                     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -267,6 +268,8 @@ public class TileManager : MonoBehaviour
     {
         tilePool = GetComponent<TilePool>();
         creaturePool = GetComponent<CreaturePool>();
+
+        treasureChests = new List<TreasureChest>();
 
         InitializeMap();
     }
@@ -712,12 +715,39 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    private void ClearMap(int x, int y)
+    {
+        for (int i = Mathf.Max(0, x - 30); i < Mathf.Min(mapWidth * 10, x + 30); i++)
+        {
+            for (int j = Mathf.Max(0, y - 30); j < Mathf.Min(mapHeight * 10, y + 30); j++)
+            {
+                if (tileMapTiles[i, j] != null)
+                {
+                    tilePool.ReplaceTile(tileMap[i, j], tileMapTiles[i, j]);
+                    tileMapTiles[i, j] = null;
+                }
+                if (enemyMapCreatures[i, j] != null)
+                {
+                    creaturePool.ReplaceCreature(0, enemyMapCreatures[i, j]);
+                    enemyMapCreatures[i, j] = null;
+                }
+            }
+        }
+
+        while(treasureChests.Count > 0)
+        {
+            TreasureChest chest = treasureChests[0];
+            treasureChests.Remove(chest);
+            chest.gameObject.SetActive(false);
+            Destroy(chest.gameObject);
+        }
+    }
+
     private void BuildAirChamber(int x, int y, bool chest, int enemies)
     {
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("AirChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -756,7 +786,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("StraightChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -795,7 +824,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("WaterChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -834,7 +862,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("BentChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -873,7 +900,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("SolidChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -912,7 +938,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("UpDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -951,7 +976,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("LeftRightPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -990,7 +1014,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("LeftDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1029,7 +1052,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("LeftUpPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1068,7 +1090,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("RightUpPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1107,7 +1128,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("RightDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1146,7 +1166,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("CrossPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1185,7 +1204,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("OverLeft");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1224,7 +1242,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("OverRight");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1263,7 +1280,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("OverMiddle");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1302,7 +1318,6 @@ public class TileManager : MonoBehaviour
         bool placeChest = chest;
         int chestX = Random.Range(2, 8);
 
-        Debug.Log("OverOpening");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -1340,5 +1355,19 @@ public class TileManager : MonoBehaviour
     {
         TreasureChest newChest = Instantiate(treasureChestPrefabs[0], new Vector3(x - mapWidth * 5, -y, 1), Quaternion.identity);
         newChest.SetGold(250 + 5 * y);
+
+        treasureChests.Add(newChest);
+    }
+
+    public void ResetMap()
+    {
+        int dudeX = (int)dude.transform.position.x + mapWidth * 5;
+        int dudeY = -(int)dude.transform.position.y;
+        
+        //clear old map
+        ClearMap(dudeX, dudeY);
+
+        //initialize a new map
+        InitializeMap();
     }
 }

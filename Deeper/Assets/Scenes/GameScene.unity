@@ -456,6 +456,7 @@ MonoBehaviour:
   deathPanel: {fileID: 245068898}
   enterPrompt: {fileID: 1572945207}
   dude: {fileID: 1726053889}
+  tileManager: {fileID: 1535778560}
 --- !u!4 &97155461
 Transform:
   m_ObjectHideFlags: 0

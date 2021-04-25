@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private UpgradeManager upgradeManager;
 
+    public TileManager tileManager;
+
     private int recordDepth = 0;
 
     public enum DeathType
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
     public void CloseDeathPanel()
     {
         deathPanel.gameObject.SetActive(false);
+
+        tileManager.ResetMap();
         dude.ResetDude();
         isPaused = false;
     }

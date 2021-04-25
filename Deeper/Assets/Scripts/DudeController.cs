@@ -407,11 +407,11 @@ public class DudeController : MonoBehaviour
             invulnerabityTimerCountdown = invulnerabilityTimer;
             invulnerabilityFlashTimer = 0.1f;
             damageShock = true;
-            if (currentHealth < 0)
+            if (currentHealth <= 0)
             {
                 currentHealth = 0;
 
-                gameManager.Death((int)transform.position.y - 6, GameManager.DeathType.Fish);
+                gameManager.Death((int)-transform.position.y - 6, GameManager.DeathType.Fish);
             }
         }
     }
