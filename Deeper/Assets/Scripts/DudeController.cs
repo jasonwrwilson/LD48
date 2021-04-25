@@ -55,7 +55,8 @@ public class DudeController : MonoBehaviour
     private float bubbleTimerCountDown;
     private int bubbleIndex = 0;
 
-    private bool nextToShop;
+    private bool nextToShop = false;
+    private bool nextToWeapons = false;
 
     private bool facingLeft = false;
 
@@ -97,6 +98,10 @@ public class DudeController : MonoBehaviour
             {
                 //trigger shop
                 gameManager.OpenShop();
+            }
+            else if (nextToWeapons)
+            {
+                //trigger weapon shop
             }
         }
         else if (Input.GetKeyDown("escape"))
@@ -167,7 +172,7 @@ public class DudeController : MonoBehaviour
             else
             {
                 //Jumping
-                if (Input.GetButtonDown("Jump") && !nextToShop)
+                if (Input.GetButtonDown("Jump") && !nextToShop && !nextToWeapons)
                 {
                     movementInput.y = waterJumpSpeed;
                 }
@@ -227,7 +232,7 @@ public class DudeController : MonoBehaviour
             else
             {
                 //Jumping
-                if (Input.GetButtonDown("Jump") && isOnGround && !nextToShop)
+                if (Input.GetButtonDown("Jump") && isOnGround && !nextToShop && !nextToWeapons)
                 {
                     isOnGround = false;
                     movementInput.y = jumpSpeed;
@@ -438,6 +443,12 @@ public class DudeController : MonoBehaviour
     public void NextToShop(bool flag)
     {
         nextToShop = flag;
+        gameManager.ShowEnterPrompt(flag);
+    }
+
+    public void NextToWeapons(bool flag)
+    {
+        nextToWeapons = flag;
         gameManager.ShowEnterPrompt(flag);
     }
 

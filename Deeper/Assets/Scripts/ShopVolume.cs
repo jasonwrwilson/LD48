@@ -24,7 +24,14 @@ public class ShopVolume : MonoBehaviour
 
         if (dude != null)
         {
-            dude.NextToShop(true);
+            if (shopKeeper.GetShopType() == ShopKeeper.ShopType.ItemShop)
+            {
+                dude.NextToShop(true);
+            }
+            else if (shopKeeper.GetShopType() == ShopKeeper.ShopType.WeaponShop)
+            {
+                dude.NextToWeapons(true);
+            }
         }
 
         shopKeeper.Wave(true);
@@ -36,7 +43,14 @@ public class ShopVolume : MonoBehaviour
 
         if (dude != null)
         {
-            dude.NextToShop(false);
+            if (shopKeeper.GetShopType() == ShopKeeper.ShopType.ItemShop)
+            {
+                dude.NextToShop(false);
+            }
+            else if (shopKeeper.GetShopType() == ShopKeeper.ShopType.WeaponShop)
+            {
+                dude.NextToWeapons(false);
+            }
         }
 
         shopKeeper.Wave(false);

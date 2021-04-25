@@ -8,6 +8,18 @@ TextureImporter:
   - first:
       213: -6386721154606918767
     second: DeepShop_1
+  - first:
+      213: -572304302491073492
+    second: DeepShop_0
+  - first:
+      213: -6271884026585610023
+    second: DeepShop_1
+  - first:
+      213: -3617750150656627369
+    second: DeepShop_2
+  - first:
+      213: -5045288704030011266
+    second: DeepShop_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 64
         width: 32
         height: 64
       alignment: 0
@@ -119,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 144b66c3a94901a50800000000000000
-      internalID: 6489850453200122945
+      spriteID: c248792e444ce08f0800000000000000
+      internalID: -572304302491073492
       vertices: []
       indices: 
       edges: []
@@ -130,6 +142,48 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
+        y: 64
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d80bea25bac5f8a0800000000000000
+      internalID: -6271884026585610023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepShop_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75deef7d76b2bcdc0800000000000000
+      internalID: -3617750150656627369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepShop_3
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 32
         height: 64
@@ -140,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1939e2cb2fecd57a0800000000000000
-      internalID: -6386721154606918767
+      spriteID: e70100f97a88bf9b0800000000000000
+      internalID: -5045288704030011266
       vertices: []
       indices: 
       edges: []

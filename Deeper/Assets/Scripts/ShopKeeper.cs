@@ -6,6 +6,14 @@ public class ShopKeeper : MonoBehaviour
 {
     public Animator spriteAnimator;
 
+    public enum ShopType
+    {
+        ItemShop,
+        WeaponShop
+    }
+
+    public ShopType shopType;
+
     bool waving = false;
 
     // Start is called before the first frame update
@@ -34,5 +42,10 @@ public class ShopKeeper : MonoBehaviour
                 spriteAnimator.SetTrigger("Idle");
             }
         }
+    }
+
+    public ShopType GetShopType()
+    {
+        return shopType;
     }
 }
