@@ -6,6 +6,8 @@ public class DudeController : MonoBehaviour
 {
     public GameManager gameManager;
 
+    private ProjectilePool projectilePool;
+
     private Rigidbody2D dudeRigidBody;
 
     public float moveSpeed;
@@ -53,6 +55,8 @@ public class DudeController : MonoBehaviour
     private int bubbleIndex = 0;
 
     private bool nextToShop;
+
+    private bool facingLeft = false;
     
     // Start is called before the first frame update
     void Start()
@@ -65,6 +69,8 @@ public class DudeController : MonoBehaviour
 
         maxOxygen = startingOxygen;
         currentOxygen = maxOxygen;
+
+        projectilePool = GetComponent<ProjectilePool>();
     }
 
     // Update is called once per frame
@@ -173,10 +179,12 @@ public class DudeController : MonoBehaviour
                 if (horizontalMovement > 0)
                 {
                     spriteRenderer.flipX = false;
+                    facingLeft = false;
                 }
                 else
                 {
                     spriteRenderer.flipX = true;
+                    facingLeft = true;
                 }
             }
 
@@ -229,10 +237,12 @@ public class DudeController : MonoBehaviour
                         if (horizontalMovement > 0)
                         {
                             spriteRenderer.flipX = false;
+                            facingLeft = false;
                         }
                         else
                         {
                             spriteRenderer.flipX = true;
+                            facingLeft = true;
                         }
                     }
                     else
@@ -255,10 +265,12 @@ public class DudeController : MonoBehaviour
                     if (horizontalMovement > 0)
                     {
                         spriteRenderer.flipX = false;
+                        facingLeft = false;
                     }
                     else
                     {
                         spriteRenderer.flipX = true;
+                        facingLeft = true;
                     }
                 }
             }
@@ -270,6 +282,38 @@ public class DudeController : MonoBehaviour
 
             dudeRigidBody.velocity = movementInput;
 
+        }
+
+        //interaction
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Projectile projectile;
+            if (Input.GetAxis("Vertical") > 0)
+            { 
+                projectile = projectilePool.GetProjectile(1);
+                projectile.SetDirection(new Vector3(0, 1, 0));
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                projectile = projectilePool.GetProjectile(1);
+                projectile.SetDirection(new Vector3(0, -1, 0));
+            }
+            else
+            {
+                projectile = projectilePool.GetProjectile(0);
+
+                if (facingLeft)
+                {
+                    projectile.SetDirection(new Vector3(-1, 0, 0));
+                }
+                else
+                {
+                    projectile.SetDirection(new Vector3(1, 0, 0));
+                }
+            }
+
+            projectile.transform.position = transform.position;
+            projectile.SetAttack(1);
         }
     }
 

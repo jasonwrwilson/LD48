@@ -40,6 +40,8 @@ public class CreaturePool : MonoBehaviour
             creaturePools[index].Remove(creature);
         }
 
+        //make sure they have health
+        creature.ResetHealth();
         return creature;
     }
 
