@@ -30,4 +30,10 @@ public class GameManager : MonoBehaviour
         shopPanel.SetActive(true);
         isPaused = true;
     }
+
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        isPaused = false;
+    }
 }

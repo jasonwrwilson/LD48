@@ -70,18 +70,22 @@ public class DudeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    // Physics Update
-    private void FixedUpdate()
-    {
         if (gameManager.IsPaused())
         {
             return;
         }
 
-        if ( invulnerabityTimerCountdown > 0)
+        //interaction
+        if (Input.GetButtonDown("Submit"))
+        {
+            if (nextToShop)
+            {
+                //trigger shop
+                gameManager.OpenShop();
+            }
+        }
+
+        if (invulnerabityTimerCountdown > 0)
         {
             invulnerabityTimerCountdown -= Time.deltaTime;
             invulnerabilityFlashTimer -= Time.deltaTime;
@@ -143,20 +147,9 @@ public class DudeController : MonoBehaviour
             else
             {
                 //Jumping
-                float jumpMovement = Input.GetAxis("Jump");
-
-
-                if (jumpMovement != 0)
+                if (Input.GetButtonDown("Jump") && !nextToShop)
                 {
-                    if (nextToShop)
-                    {
-                        //trigger shop
-                        gameManager.OpenShop();
-                    }
-                    else
-                    {
-                        movementInput.y = jumpMovement * waterJumpSpeed;
-                    }
+                    movementInput.y = waterJumpSpeed;
                 }
 
                 //Running
@@ -183,7 +176,7 @@ public class DudeController : MonoBehaviour
                 }
             }
 
-            if ( movementInput.y < -maxFallSpeed )
+            if (movementInput.y < -maxFallSpeed)
             {
                 movementInput.y = -maxFallSpeed;
             }
@@ -212,23 +205,11 @@ public class DudeController : MonoBehaviour
             else
             {
                 //Jumping
-                float jumpMovement = Input.GetAxis("Jump");
-
-
-                if (jumpMovement != 0 && isOnGround)
+                if (Input.GetButtonDown("Jump") && isOnGround && !nextToShop)
                 {
-                    if (nextToShop)
-                    {
-                        //trigger shop
-                        gameManager.OpenShop();
-                    }
-                    else
-                    {
-                        isOnGround = false;
-                        movementInput.y = jumpMovement * jumpSpeed;
-                    }
+                    isOnGround = false;
+                    movementInput.y = jumpSpeed;
                 }
-
 
                 //Running
                 float horizontalMovement = Input.GetAxis("Horizontal");

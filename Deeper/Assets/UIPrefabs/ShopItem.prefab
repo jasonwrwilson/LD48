@@ -241,6 +241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb504754046cd144d9a82976ccb7f3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlight: {fileID: 7907110723143741411}
+  spriteRenderer: {fileID: 0}
+  nameText: {fileID: 19177951693104580}
+  costText: {fileID: 2054694682963711223}
 --- !u!1 &6804658404723351048
 GameObject:
   m_ObjectHideFlags: 0
