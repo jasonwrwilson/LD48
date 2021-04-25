@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
 
     public GameObject shopPanel;
+    public GameObject enterPrompt;
     
     // Start is called before the first frame update
     void Start()
@@ -35,5 +36,10 @@ public class GameManager : MonoBehaviour
     {
         shopPanel.SetActive(false);
         isPaused = false;
+    }
+
+    public void ShowEnterPrompt(bool show)
+    {
+        enterPrompt.SetActive(show);
     }
 }

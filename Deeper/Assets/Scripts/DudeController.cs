@@ -378,5 +378,6 @@ public class DudeController : MonoBehaviour
     public void NextToShop(bool flag)
     {
         nextToShop = flag;
+        gameManager.ShowEnterPrompt(flag);
     }
 }
