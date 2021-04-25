@@ -11,10 +11,20 @@ public class UpgradeManager : MonoBehaviour
     public int[] flipperUpgradeCosts;
     public int[] rebreatherUpgradeCosts;
 
+    public int[] attackUpgradeCosts;
+    public int[] shotCountUpgradeCosts;
+    public int[] firingSpeedCosts;
+    public int[] multiShotCosts;
+
     private int healthUpgradeNum = 0;
     private int tankUpgradeNum = 0;
     private int flipperUpgradeNum = 0;
     private int rebreatherUpgradeNum = 0;
+
+    private int attackUpgradeNum = 0;
+    private int shotCountUpgradeNum = 0;
+    private int firingSpeedUpgradeNum = 0;
+    private int multiShotUpgradeNum = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +44,11 @@ public class UpgradeManager : MonoBehaviour
         tankUpgradeNum = 0;
         flipperUpgradeNum = 0;
         rebreatherUpgradeNum = 0;
+
+        attackUpgradeNum = 0;
+        shotCountUpgradeNum = 0;
+        firingSpeedUpgradeNum = 0;
+        multiShotUpgradeNum = 0;
     }
 
     public void UpgradeHealth()
@@ -117,5 +132,83 @@ public class UpgradeManager : MonoBehaviour
         return rebreatherUpgradeNum < rebreatherUpgradeCosts.Length;
     }
 
+    public void UpgradeAttack()
+    {
+        if (dude.GetBones() >= GetAttackUpgradeCost())
+        {
+            dude.SpendBones(GetAttackUpgradeCost());
+            dude.UpgradeAttack();
+            attackUpgradeNum++;
+        }
+    }
 
+    public void UpgradeShotCount()
+    {
+        if (dude.GetBones() >= GetShotCountUpgradeCost())
+        {
+            dude.SpendBones(GetShotCountUpgradeCost());
+            dude.UpgradeShotCount();
+            shotCountUpgradeNum++;
+        }
+    }
+
+    public void UpgradeFiringSpeed()
+    {
+        if (dude.GetBones() >= GetFiringSpeedUpgradeCost())
+        {
+            dude.SpendBones(GetFiringSpeedUpgradeCost());
+            dude.UpgradeFiringSpeed();
+            firingSpeedUpgradeNum++;
+        }
+    }
+
+    public void UpgradeMultishot()
+    {
+        if (dude.GetBones() >= GetMultiShotUpgradeCost())
+        {
+            dude.SpendBones(GetMultiShotUpgradeCost());
+            dude.UpgradeMultiShot();
+            multiShotUpgradeNum++;
+        }
+    }
+
+    public int GetAttackUpgradeCost()
+    {
+        return attackUpgradeCosts[attackUpgradeNum];
+    }
+
+    public int GetShotCountUpgradeCost()
+    {
+        return shotCountUpgradeCosts[shotCountUpgradeNum];
+    }
+
+    public int GetMultiShotUpgradeCost()
+    {
+        return multiShotCosts[multiShotUpgradeNum];
+    }
+
+    public int GetFiringSpeedUpgradeCost()
+    {
+        return firingSpeedCosts[firingSpeedUpgradeNum];
+    }
+
+    public bool HasAttackUpgrade()
+    {
+        return attackUpgradeNum < attackUpgradeCosts.Length;
+    }
+
+    public bool HasShotCountUpgrade()
+    {
+        return shotCountUpgradeNum < shotCountUpgradeCosts.Length;
+    }
+
+    public bool HasMultiShotUpgrade()
+    {
+        return multiShotUpgradeNum < multiShotCosts.Length;
+    }
+
+    public bool HasFiringSpeedUpgradeCost()
+    {
+        return firingSpeedUpgradeNum < firingSpeedCosts.Length;
+    }
 }

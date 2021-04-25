@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Wallet : MonoBehaviour
 {
     public Text coinText;
+    public Text boneText;
     public DudeController dude;
     
     // Start is called before the first frame update
@@ -18,5 +19,6 @@ public class Wallet : MonoBehaviour
     void Update()
     {
         coinText.text = dude.GetCoins().ToString();
+        boneText.text = dude.GetBones().ToString();
     }
 }

@@ -709,6 +709,7 @@ public class TileManager : MonoBehaviour
                     {
                         enemyMapCreatures[i, j] = creaturePool.GetCreature(0);
                         enemyMapCreatures[i, j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+                        enemyMapCreatures[i, j].MultiplyHealth(Mathf.Max(1, (int)((j - 3) / 10)));
                     }
                 }
             }

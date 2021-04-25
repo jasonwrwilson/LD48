@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
 
     public GameObject shopPanel;
+    public GameObject weaponPanel;
     public DeathPanel deathPanel;
     public GameObject enterPrompt;
     public GameObject quitPanel;
@@ -55,6 +56,18 @@ public class GameManager : MonoBehaviour
     public void CloseShop()
     {
         shopPanel.SetActive(false);
+        PauseGame(false);
+    }
+
+    public void OpenWeapons()
+    {
+        weaponPanel.SetActive(true);
+        PauseGame(true);
+    }
+
+    public void CloseWeapons()
+    {
+        weaponPanel.SetActive(false);
         PauseGame(false);
     }
 

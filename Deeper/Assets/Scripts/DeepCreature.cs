@@ -14,6 +14,8 @@ public class DeepCreature : MonoBehaviour
     public float deathTimer;
     private float deathTimerCountdown;
 
+    public int bones;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -54,6 +56,11 @@ public class DeepCreature : MonoBehaviour
         return currentHealth;
     }
 
+    public int GetBones()
+    {
+        return bones;
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -73,6 +80,11 @@ public class DeepCreature : MonoBehaviour
 
         c.a = 1.0f;
         spriteRenderer.color = c;
+    }
+
+    public void MultiplyHealth(int mult)
+    {
+        currentHealth *= mult;
     }
 
     public bool IsDead()

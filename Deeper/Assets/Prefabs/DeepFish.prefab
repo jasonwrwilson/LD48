@@ -140,6 +140,7 @@ MonoBehaviour:
   attack: 1
   maxHealth: 1
   deathTimer: 1
+  bones: 5
 --- !u!50 &7219498940709574531
 Rigidbody2D:
   serializedVersion: 4

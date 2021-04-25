@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour
     private float timeOut = 30.0f;
     private float timeOutCountdown;
 
+    private DudeController dude;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,13 +79,22 @@ public class Projectile : MonoBehaviour
         attack = amount;
     }
 
+    public void SetDude(DudeController d)
+    {
+        dude = d;
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         DeepCreature creature = collision.gameObject.GetComponent<DeepCreature>();
 
-        if (creature != null)
+        if (creature != null && !creature.IsDead())
         {
             creature.TakeDamage(attack);
+            if ( creature.IsDead() )
+            {
+                dude.EarnBones(creature.GetBones());
+            }
             KillProjectile();
         }
 

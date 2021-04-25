@@ -23,6 +23,21 @@ TextureImporter:
   - first:
       213: 3026228627232571873
     second: DeepItems_3
+  - first:
+      213: -8662222446353405882
+    second: DeepItems_3
+  - first:
+      213: 7207743436206062944
+    second: DeepItems_4
+  - first:
+      213: -5165865786816356691
+    second: DeepItems_5
+  - first:
+      213: -1812556990841105557
+    second: DeepItems_6
+  - first:
+      213: -1075200390884572355
+    second: DeepItems_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -124,7 +139,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -145,7 +160,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -165,8 +180,8 @@ TextureImporter:
       name: DeepItems_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -186,6 +201,90 @@ TextureImporter:
       name: DeepItems_3
       rect:
         serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 648a0b7549a99c780800000000000000
+      internalID: -8662222446353405882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepItems_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d373b877c070460800000000000000
+      internalID: 7207743436206062944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepItems_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae9773df682f48b0800000000000000
+      internalID: -5165865786816356691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepItems_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63d3c9250188d6e0800000000000000
+      internalID: -1812556990841105557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepItems_7
+      rect:
+        serializedVersion: 2
         x: 32
         y: 0
         width: 32
@@ -197,8 +296,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e1c05f17e25ff920800000000000000
-      internalID: 3026228627232571873
+      spriteID: d33c6fee0fe1411f0800000000000000
+      internalID: -1075200390884572355
       vertices: []
       indices: 
       edges: []

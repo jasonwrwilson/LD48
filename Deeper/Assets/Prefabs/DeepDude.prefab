@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644836ddd744253458dd4b29719878da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   moveSpeed: 4
   jumpSpeed: 5
   maxFallSpeed: 4
@@ -161,6 +162,12 @@ MonoBehaviour:
   invulnerabilityTimer: 1
   startingOxygen: 6
   oxygenRate: 0.5
+  startingCoins: 0
+  startingBones: 0
+  startingAttack: 1
+  startingShotCount: 3
+  shotTimer: 5
+  startingFiringSpeed: 1
   bubbles: []
   bubbleTimer: 2
 --- !u!50 &2107280930056428172
