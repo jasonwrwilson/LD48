@@ -20,7 +20,7 @@ public class HitBox : PlayerTriggerVolume
     {
         DeepCreature collidingCreature = collision.gameObject.GetComponent<DeepCreature>();
 
-        if (collidingCreature != null)
+        if (collidingCreature != null && !collidingCreature.IsDead())
         {
             dude.TakeDamage(collidingCreature.GetAttack());
         }

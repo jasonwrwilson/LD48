@@ -136,7 +136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   spriteRenderer: {fileID: 7219498941743149970}
+  spriteAnimator: {fileID: 2424827712362781619}
   attack: 1
+  maxHealth: 1
+  deathTimer: 1
 --- !u!50 &7219498940709574531
 Rigidbody2D:
   serializedVersion: 4
@@ -157,7 +160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!1 &7219498941743149964
 GameObject:
   m_ObjectHideFlags: 0

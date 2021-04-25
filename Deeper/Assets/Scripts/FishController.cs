@@ -13,20 +13,27 @@ public class FishController : DeepCreature
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
-    }
+        base.Update();
 
-    // Physics Update
-    private void FixedUpdate()
-    {
-        Vector2 movementInput = fishRigidBody.velocity;
+        if (!IsDead())
+        {
+            Vector2 movementInput = fishRigidBody.velocity;
 
-        //Swimming
-        movementInput.x = moveSpeed;
+            //Swimming
+            movementInput.x = moveSpeed;
 
-        fishRigidBody.velocity = movementInput;
+            fishRigidBody.velocity = movementInput;
+        }
+        else
+        {
+            Vector2 movementInput = fishRigidBody.velocity;
 
+            movementInput.x = 0;
+            movementInput.y = -1;
+
+            fishRigidBody.velocity = movementInput;
+        }
     }
 }
