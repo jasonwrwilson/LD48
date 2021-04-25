@@ -31,6 +31,7 @@ public class TileManager : MonoBehaviour
 
     private MapChambers[,] chamberMap;
     private int[,] tileMap;
+    private DeepTile[,] tileMapTiles;
 
     private int[,] airChamber = {
                                     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -253,21 +254,23 @@ public class TileManager : MonoBehaviour
                                     { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
                                 };
 
-
-
-    public DeepTile[] tilePrefabs;
+    private TilePool tilePool;
 
     // Start is called before the first frame update
     void Start()
     {
+        tilePool = GetComponent<TilePool>();
+
         InitializeMap();
-        InstantiateTiles();
+        //InstantiateTiles();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        int dudeX = (int)dude.transform.position.x + mapWidth * 5;
+        int dudeY = -(int)dude.transform.position.y;
+        UpdateTiles(dudeX, dudeY);
     }
 
     private void InitializeMap()
@@ -292,15 +295,58 @@ public class TileManager : MonoBehaviour
         chamberMap[mapWidth / 2, 0] = MapChambers.OverWorldOpening;
 
         //first row
-        for(int i = 0; i < mapWidth; i++)
+        bool firstRowBranchLeft = Random.Range(0, 2) == 1;
+        int firstRowBranchLength = 3;
+        int firstRowChambersToCreate = firstRowBranchLength;
+        bool firstRowAirChamberUsed = false;
+        int firstRowConnectionIndex = mapWidth / 2;
+        for (int i = 0; i < mapWidth; i++)
         {
+
             if (chamberMap[i, 0] == MapChambers.OverWorldOpening)
             {
                 chamberMap[i, 1] = MapChambers.PathUpDown;
             }
             else
             {
-                chamberMap[i, 1] = MapChambers.ChamberSolid;
+                if ((firstRowBranchLeft && i > Mathf.Max(0, firstRowConnectionIndex - firstRowBranchLength - 1) && i < firstRowConnectionIndex)
+                    || (!firstRowBranchLeft && i < Mathf.Min(mapWidth - 1, firstRowConnectionIndex + firstRowBranchLength + 1) && i > firstRowConnectionIndex))
+                {
+                    float randChamberNum = Random.Range(0, 4);
+                    if (firstRowAirChamberUsed && randChamberNum == 0)
+                    {
+                        randChamberNum = Random.Range(1, 4);
+                    }
+
+                    firstRowChambersToCreate--;
+
+                    if (firstRowChambersToCreate == 0 && !firstRowAirChamberUsed)
+                    {
+                        randChamberNum = 0;
+                    }
+
+                    if (randChamberNum == 0)
+                    {
+                        firstRowAirChamberUsed = true;
+                        chamberMap[i, 1] = MapChambers.ChamberAir;
+                    }
+                    else if (randChamberNum == 1)
+                    {
+                        chamberMap[i, 1] = MapChambers.ChamberBent;
+                    }
+                    else if (randChamberNum == 2)
+                    {
+                        chamberMap[i, 1] = MapChambers.ChamberStraight;
+                    }
+                    else if (randChamberNum == 3)
+                    {
+                        chamberMap[i, 1] = MapChambers.ChamberWater;
+                    }
+                }
+                else
+                {
+                    chamberMap[i, 1] = MapChambers.ChamberSolid;
+                }
             }
         }
         
@@ -381,6 +427,7 @@ public class TileManager : MonoBehaviour
                 bool branchLeft = false;
                 bool airChamberUsed = false;
                 int branchLength = Mathf.Max(3, j / 4);
+                int chambersToCreate = branchLength;
                 if (connectionIndex > mapWidth / 2 )
                 {
                     branchLeft = true;
@@ -405,6 +452,13 @@ public class TileManager : MonoBehaviour
                             if (airChamberUsed && randChamberNum == 0)
                             {
                                 randChamberNum = Random.Range(1, 4);
+                            }
+
+                            chambersToCreate--;
+
+                            if (chambersToCreate == 0 && !airChamberUsed)
+                            {
+                                randChamberNum = 0;
                             }
 
                             if (randChamberNum == 0)
@@ -547,6 +601,8 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
+
+        tileMapTiles = new DeepTile[tileMapWidth, tileMapHeight];
     }
 
     private void InstantiateTiles()
@@ -555,7 +611,31 @@ public class TileManager : MonoBehaviour
         {
             for(int j = 0; j < mapHeight * 10; j++)
             {
-                DeepTile newTile = Instantiate(tilePrefabs[tileMap[i,j]], new Vector3(i - mapWidth * 5, -j, 1), Quaternion.identity);
+                DeepTile placeTile = tilePool.GetTile(tileMap[i, j]);
+                placeTile.transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+            }
+        }
+    }
+
+    private void UpdateTiles(int x, int y)
+    {
+        for (int i = Mathf.Max(0, x - 30); i < Mathf.Min(mapWidth * 10, x + 30); i++)
+        {
+            for (int j = Mathf.Max(0, y - 30); j < Mathf.Min(mapHeight * 10, y + 30); j++)
+            {
+                if (i < x - 20 || i > x + 20 || j < y - 20 || j > y + 20)
+                {
+                    if (tileMapTiles[i,j] != null)
+                    {
+                        tilePool.ReplaceTile(tileMap[i, j], tileMapTiles[i, j]);
+                        tileMapTiles[i, j] = null;
+                    }
+                }
+                else if (tileMapTiles[i,j] == null)
+                {
+                    tileMapTiles[i,j] = tilePool.GetTile(tileMap[i, j]);
+                    tileMapTiles[i,j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+                }
             }
         }
     }

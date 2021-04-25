@@ -3101,6 +3101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1535778559}
   - component: {fileID: 1535778560}
+  - component: {fileID: 1535778561}
   m_Layer: 0
   m_Name: TileManager
   m_TagString: Untagged
@@ -3135,8 +3136,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dude: {fileID: 1726053889}
-  mapWidth: 10
-  mapHeight: 10
+  mapWidth: 20
+  mapHeight: 500
+--- !u!114 &1535778561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535778558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e467d8fbebd83f4c94308519eaaf80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   tilePrefabs:
   - {fileID: 135929334036748137, guid: afa515d927a085a42a3262556a586c2a, type: 3}
   - {fileID: 2812129795869697639, guid: 8ea986f79873b004f818224a4e996c95, type: 3}
