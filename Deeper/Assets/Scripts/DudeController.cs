@@ -384,4 +384,27 @@ public class DudeController : MonoBehaviour
         nextToShop = flag;
         gameManager.ShowEnterPrompt(flag);
     }
+
+    public void UpgradeHealth()
+    {
+        healthMax += 2;
+        currentHealth += 2;
+    }
+
+    public void UpgradeTank()
+    {
+        maxOxygen += 2;
+        currentOxygen += 2;
+    }
+
+    public void UpgradeFlipper()
+    {
+        waterJumpSpeed *= 2;
+        waterMoveSpeed *= 2;
+    }
+
+    public void UpgradeRebreather()
+    {
+        oxygenRate *= 0.5f;
+    }
 }

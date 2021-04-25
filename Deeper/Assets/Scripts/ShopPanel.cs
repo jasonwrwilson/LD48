@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShopPanel : MonoBehaviour
 {
     public GameManager gameManager;
+    public UpgradeManager upgradeManager;
 
     public ShopItem[] shopItems;
     public GameObject exitHighlight;
@@ -15,18 +16,51 @@ public class ShopPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shopItems[0].SetCost(100);
         shopItems[0].SetItemName("Heart Container");
-
-        shopItems[1].SetCost(200);
         shopItems[1].SetItemName("Breathing Tank");
-        shopItems[2].SetCost(300);
-        shopItems[2].SetItemName("Rebreather");
+        shopItems[2].SetItemName("Flippers");
+        shopItems[3].SetItemName("Rebreather");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (upgradeManager.HasHealthUpgrade())
+        {
+            shopItems[0].SetCost(upgradeManager.GetHealthUpgradeCost());
+        }
+        else
+        {
+            shopItems[0].SetItemName("Sold Out");
+        }
+
+        if (upgradeManager.HasTankUpgrade())
+        {
+            shopItems[1].SetCost(upgradeManager.GetTankUpgradeCost());
+        }
+        else
+        {
+            shopItems[1].SetItemName("Sold Out");
+        }
+
+        if (upgradeManager.HasFlipperUpgrade())
+        {
+            shopItems[2].SetCost(upgradeManager.GetFlipperUpgradeCost());
+        }
+        else
+        {
+            shopItems[2].SetItemName("Sold Out");
+        }
+
+        if (upgradeManager.HasRebreatherUpgrade())
+        {
+            shopItems[3].SetCost(upgradeManager.GetRebreatherUpgradeCost());
+        }
+        else
+        {
+            shopItems[3].SetItemName("Sold Out");
+        }
+
         if (Input.GetButtonDown("Left"))
         {
             if (exitHighlighted)
@@ -88,6 +122,22 @@ public class ShopPanel : MonoBehaviour
             else
             {
                 //BUYING LOGIC
+                if (itemHighlighted == 0)
+                {
+                    upgradeManager.UpgradeHealth();
+                }
+                else if (itemHighlighted == 1)
+                {
+                    upgradeManager.UpgradeTank();
+                }
+                else if (itemHighlighted == 2)
+                {
+                    upgradeManager.UpgradeFlipper();
+                }
+                else if (itemHighlighted == 3)
+                {
+                    upgradeManager.UpgradeRebreather();
+                }
             }
         }
         else if (Input.GetButtonDown("Cancel"))
