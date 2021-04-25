@@ -84,6 +84,10 @@ public class DudeController : MonoBehaviour
                 gameManager.OpenShop();
             }
         }
+        else if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();            
+        }
 
         if (invulnerabityTimerCountdown > 0)
         {
