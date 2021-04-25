@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject shopPanel;
     public DeathPanel deathPanel;
     public GameObject enterPrompt;
+    public GameObject quitPanel;
 
     public DudeController dude;
 
@@ -104,5 +105,17 @@ public class GameManager : MonoBehaviour
         }
 
         return "Couldn't keep your head above water!";
+    }
+
+    public void OpenQuitPanel()
+    {
+        quitPanel.SetActive(true);
+        isPaused = true;
+    }
+
+    public void CloseQuitPanel()
+    {
+        quitPanel.SetActive(false);
+        isPaused = false;
     }
 }

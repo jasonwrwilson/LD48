@@ -101,7 +101,7 @@ public class DudeController : MonoBehaviour
         }
         else if (Input.GetKeyDown("escape"))
         {
-            Application.Quit();            
+            gameManager.OpenQuitPanel();           
         }
 
         if (invulnerabityTimerCountdown > 0)
