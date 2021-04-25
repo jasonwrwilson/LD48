@@ -48,13 +48,13 @@ public class GameManager : MonoBehaviour
     public void OpenShop()
     {
         shopPanel.SetActive(true);
-        isPaused = true;
+        PauseGame(true);
     }
 
     public void CloseShop()
     {
         shopPanel.SetActive(false);
-        isPaused = false;
+        PauseGame(false);
     }
 
     public void ShowEnterPrompt(bool show)
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
 
     public void Death(int currentDepth, DeathType deathType)
     {
-        isPaused = true;
         deathPanel.gameObject.SetActive(true);
 
         if ( currentDepth > recordDepth )
@@ -73,6 +72,7 @@ public class GameManager : MonoBehaviour
         }
 
         deathPanel.ShowDeathPanel(GetQuip(deathType), currentDepth, recordDepth);
+        PauseGame(true);
     }
 
     public void CloseDeathPanel()
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
         tileManager.ResetMap();
         dude.ResetDude();
-        isPaused = false;
+        PauseGame(false);
     }
 
     private string GetQuip(DeathType deathType)
@@ -110,12 +110,25 @@ public class GameManager : MonoBehaviour
     public void OpenQuitPanel()
     {
         quitPanel.SetActive(true);
-        isPaused = true;
+        PauseGame(true);
     }
 
     public void CloseQuitPanel()
     {
         quitPanel.SetActive(false);
-        isPaused = false;
+        PauseGame(false);
+    }
+
+    public void PauseGame(bool pause)
+    {
+        isPaused = pause;
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }
