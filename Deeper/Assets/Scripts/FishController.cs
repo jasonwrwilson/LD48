@@ -6,6 +6,9 @@ public class FishController : DeepCreature
 {
     private Rigidbody2D fishRigidBody;
 
+    public float wiggleTimer;
+    private float wiggleTimerCountdown;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -18,12 +21,27 @@ public class FishController : DeepCreature
     {
         base.Update();
 
+        wiggleTimerCountdown -= Time.deltaTime;
+        if (wiggleTimerCountdown < -wiggleTimer )
+        {
+            wiggleTimerCountdown = wiggleTimer;
+        }
+
         if (!IsDead())
         {
             Vector2 movementInput = fishRigidBody.velocity;
 
             //Swimming
             movementInput.x = moveSpeed;
+
+            if (wiggleTimerCountdown > 0)
+            {
+                movementInput.y = -0.5f;
+            }
+            else
+            {
+                movementInput.y = 0.5f;
+            }
 
             fishRigidBody.velocity = movementInput;
         }
