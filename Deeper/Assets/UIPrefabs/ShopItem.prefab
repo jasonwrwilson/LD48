@@ -64,7 +64,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: d2083784351653b4da18191e603e72c0, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlight: {fileID: 7907110723143741411}
-  spriteRenderer: {fileID: 0}
   nameText: {fileID: 19177951693104580}
   costText: {fileID: 2054694682963711223}
 --- !u!1 &6804658404723351048
@@ -309,7 +308,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: d2083784351653b4da18191e603e72c0, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
