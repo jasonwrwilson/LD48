@@ -19,13 +19,21 @@ public class UpgradeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetUpgrades();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ResetUpgrades()
+    {
+        healthUpgradeNum = 0;
+        tankUpgradeNum = 0;
+        flipperUpgradeNum = 0;
+        rebreatherUpgradeNum = 0;
     }
 
     public void UpgradeHealth()

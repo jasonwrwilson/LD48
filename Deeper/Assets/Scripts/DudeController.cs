@@ -37,7 +37,8 @@ public class DudeController : MonoBehaviour
     public float startingOxygen;
     public float oxygenRate;
 
-    private int coins = 1000;
+    public int startingCoins;
+    private int coins;
 
     private enum SpriteAnimationState
     {
@@ -57,20 +58,28 @@ public class DudeController : MonoBehaviour
     private bool nextToShop;
 
     private bool facingLeft = false;
+
+    private Vector3 startingPosition;
     
     // Start is called before the first frame update
     void Start()
     {
         dudeRigidBody = GetComponent<Rigidbody2D>();
-        bubbleTimerCountDown = bubbleTimer;
+        projectilePool = GetComponent<ProjectilePool>();
+        startingPosition = transform.position;
 
+        ResetDude();
+    }
+
+    public void ResetDude()
+    {
         healthMax = startingHealth;
         currentHealth = healthMax;
-
         maxOxygen = startingOxygen;
         currentOxygen = maxOxygen;
-
-        projectilePool = GetComponent<ProjectilePool>();
+        transform.position = startingPosition;
+        bubbleTimerCountDown = bubbleTimer;
+        coins = startingCoins;
     }
 
     // Update is called once per frame
@@ -142,6 +151,7 @@ public class DudeController : MonoBehaviour
             if (currentOxygen <= 0)
             {
                 currentOxygen = 0;
+                gameManager.Death((int)-transform.position.y - 6, GameManager.DeathType.Air);
             }
 
             dudeRigidBody.gravityScale = 0.25f;
@@ -400,6 +410,8 @@ public class DudeController : MonoBehaviour
             if (currentHealth < 0)
             {
                 currentHealth = 0;
+
+                gameManager.Death((int)transform.position.y - 6, GameManager.DeathType.Fish);
             }
         }
     }
