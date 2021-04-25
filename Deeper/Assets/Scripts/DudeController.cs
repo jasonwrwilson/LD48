@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DudeController : MonoBehaviour
 {
+    public GameManager gameManager;
+
     private Rigidbody2D dudeRigidBody;
 
     public float moveSpeed;
@@ -49,6 +51,8 @@ public class DudeController : MonoBehaviour
     public float bubbleTimer;
     private float bubbleTimerCountDown;
     private int bubbleIndex = 0;
+
+    private bool nextToShop;
     
     // Start is called before the first frame update
     void Start()
@@ -72,6 +76,11 @@ public class DudeController : MonoBehaviour
     // Physics Update
     private void FixedUpdate()
     {
+        if (gameManager.IsPaused())
+        {
+            return;
+        }
+
         if ( invulnerabityTimerCountdown > 0)
         {
             invulnerabityTimerCountdown -= Time.deltaTime;
@@ -136,9 +145,18 @@ public class DudeController : MonoBehaviour
                 //Jumping
                 float jumpMovement = Input.GetAxis("Jump");
 
+
                 if (jumpMovement != 0)
                 {
-                    movementInput.y = jumpMovement * waterJumpSpeed;
+                    if (nextToShop)
+                    {
+                        //trigger shop
+                        gameManager.OpenShop();
+                    }
+                    else
+                    {
+                        movementInput.y = jumpMovement * waterJumpSpeed;
+                    }
                 }
 
                 //Running
@@ -196,10 +214,19 @@ public class DudeController : MonoBehaviour
                 //Jumping
                 float jumpMovement = Input.GetAxis("Jump");
 
+
                 if (jumpMovement != 0 && isOnGround)
                 {
-                    isOnGround = false;
-                    movementInput.y = jumpMovement * jumpSpeed;
+                    if (nextToShop)
+                    {
+                        //trigger shop
+                        gameManager.OpenShop();
+                    }
+                    else
+                    {
+                        isOnGround = false;
+                        movementInput.y = jumpMovement * jumpSpeed;
+                    }
                 }
 
 
@@ -365,5 +392,10 @@ public class DudeController : MonoBehaviour
     public void EarnCoins(int amount)
     {
         coins += amount;
+    }
+
+    public void NextToShop(bool flag)
+    {
+        nextToShop = flag;
     }
 }
