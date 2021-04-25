@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         upgradeManager = GetComponent<UpgradeManager>();
+        LoadRecord();
     }
 
     // Update is called once per frame
@@ -65,13 +66,14 @@ public class GameManager : MonoBehaviour
     public void Death(int currentDepth, DeathType deathType)
     {
         deathPanel.gameObject.SetActive(true);
+        deathPanel.ShowDeathPanel(GetQuip(deathType), currentDepth, recordDepth);
 
         if ( currentDepth > recordDepth )
         {
             recordDepth = currentDepth;
+            SaveRecord();
         }
 
-        deathPanel.ShowDeathPanel(GetQuip(deathType), currentDepth, recordDepth);
         PauseGame(true);
     }
 
@@ -129,6 +131,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 1;
+        }
+    }
+
+    private void SaveRecord()
+    {
+        PlayerPrefs.SetInt("RecordDepth", recordDepth);
+        PlayerPrefs.Save();
+        Debug.Log("Game data saved!");
+    }
+
+    private void LoadRecord()
+    {
+        if (PlayerPrefs.HasKey("RecordDepth"))
+        {
+            recordDepth = PlayerPrefs.GetInt("RecordDepth");
         }
     }
 }
