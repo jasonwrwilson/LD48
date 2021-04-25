@@ -153,13 +153,13 @@ MonoBehaviour:
   moveSpeed: 4
   jumpSpeed: 5
   maxFallSpeed: 4
-  waterMoveSpeed: 0
-  waterJumpSpeed: 0
+  waterMoveSpeed: 2
+  waterJumpSpeed: 2.5
   spriteAnimator: {fileID: 4816281798746427017}
   spriteRenderer: {fileID: 2107280929249627987}
   startingHealth: 6
   invulnerabilityTimer: 1
-  startingOxygen: 1
+  startingOxygen: 6
   oxygenRate: 0.5
   bubbles: []
   bubbleTimer: 2

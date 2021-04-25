@@ -32,6 +32,8 @@ public class TileManager : MonoBehaviour
     private MapChambers[,] chamberMap;
     private int[,] tileMap;
     private DeepTile[,] tileMapTiles;
+    private int[,] enemyMap;
+    private DeepCreature[,] enemyMapCreatures;
 
     private int[,] airChamber = {
                                     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -249,20 +251,24 @@ public class TileManager : MonoBehaviour
                                     { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
                                     { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
                                     { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
-                                    { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
+                                    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
                                     { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
                                     { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
                                 };
 
     private TilePool tilePool;
+    private CreaturePool creaturePool;
+
+    public DeepCreature[] creaturePrefabs;
+    public TreasureChest[] treasureChestPrefabs;
 
     // Start is called before the first frame update
     void Start()
     {
         tilePool = GetComponent<TilePool>();
+        creaturePool = GetComponent<CreaturePool>();
 
         InitializeMap();
-        //InstantiateTiles();
     }
 
     // Update is called once per frame
@@ -492,6 +498,7 @@ public class TileManager : MonoBehaviour
         int tileMapHeight = mapHeight * 10;
 
         tileMap = new int[tileMapWidth, tileMapHeight];
+        enemyMap = new int[tileMapWidth, tileMapHeight];
 
         for (int i = 0; i < tileMapWidth; i++)
         {
@@ -512,90 +519,146 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < mapWidth; i++)
+        for (int j = 0; j < mapHeight; j++)
         {
-            for (int j = 0; j < mapHeight; j++)
+            for (int i = 0; i < mapWidth; i++)
             {
+                bool placedChest = false;
                 switch (chamberMap[i,j])
                 {
                     case MapChambers.OverWorldLeft:
                     {
-                        BuildOverworldLeft(i * 10, j * 10);
+                        BuildOverworldLeft(i * 10, j * 10, false, 0);
                         break;
                     }
                     case MapChambers.OverWorldMiddle:
                     {
-                        BuildOverworldMiddle(i * 10, j * 10);
+                        BuildOverworldMiddle(i * 10, j * 10, false, 0);
                         break;
                     }
                     case MapChambers.OverWorldRight:
                     {
-                        BuildOverworldRight(i * 10, j * 10);
+                        BuildOverworldRight(i * 10, j * 10, false, 0);
                         break;
                     }
                     case MapChambers.OverWorldOpening:
                     {
-                        BuildOverworldOpening(i * 10, j * 10);
+                        BuildOverworldOpening(i * 10, j * 10, false, 0);
                         break;
                     }
                     case MapChambers.PathCross:
                     {
-                        BuildCrossPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildCrossPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathUpDown:
                     {
-                        BuildUpDownPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildUpDownPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathLeftDown:
                     {
-                        BuildLeftDownPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildLeftDownPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathLeftRight:
                     {
-                        BuildLeftRightPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildLeftRightPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathLeftUp:
                     {
-                        BuildLeftUpPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildLeftUpPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathRightDown:
                     {
-                        BuildRightDownPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildRightDownPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.PathRightUp:
                     {
-                        BuildRightUpPath(i * 10, j * 10);
+                        int enemies = Random.Range(1, 5);
+                        BuildRightUpPath(i * 10, j * 10, false, enemies);
                         break;
                     }
                     case MapChambers.ChamberAir:
                     {
-                        BuildAirChamber(i * 10, j * 10);
+                        bool chest = false;
+                        if(!placedChest)
+                        {
+                            chest = true;
+                            placedChest = chest;
+                        }
+                        else
+                        {
+                            chest = Random.Range(0, 4) == 0;
+                        }
+
+                        int enemies = Random.Range(1, 4);
+                        BuildAirChamber(i * 10, j * 10, chest, enemies);
                         break;
                     }
                     case MapChambers.ChamberBent:
                     {
-                        BuildBentChamber(i * 10, j * 10);
+                        bool chest = false;
+                        if (!placedChest)
+                        {
+                            chest = Random.Range(0, 4) == 0;
+                            placedChest = chest;
+                        }
+                        else
+                        {
+                            chest = Random.Range(0, 10) == 0;
+                        }
+
+                        int enemies = Random.Range(1, 4);
+                        BuildBentChamber(i * 10, j * 10, chest, enemies);
                         break;
                     }
                     case MapChambers.ChamberSolid:
                     {
-                        BuildSolidChamber(i * 10, j * 10);
+                        BuildSolidChamber(i * 10, j * 10, false, 0);
                         break;
                     }
                     case MapChambers.ChamberStraight:
                     {
-                        BuildStraightChamber(i * 10, j * 10);
+                        bool chest = false;
+                        if (!placedChest)
+                        {
+                            chest = Random.Range(0, 4) == 0;
+                            placedChest = chest;
+                        }
+                        else
+                        {
+                            chest = Random.Range(0, 10) == 0;
+                        }
+
+                        int enemies = Random.Range(1, 4);
+                        BuildStraightChamber(i * 10, j * 10, chest, enemies);
                         break;
                     }
                     case MapChambers.ChamberWater:
                     {
-                        BuildWaterChamber(i * 10, j * 10);
+                        bool chest = false;
+                        if (!placedChest)
+                        {
+                            chest = true;
+                            placedChest = chest;
+                        }
+                        else
+                        {
+                            chest = Random.Range(0, 4) == 0;
+                        }
+
+                        int enemies = Random.Range(1, 4);
+                        BuildWaterChamber(i * 10, j * 10, chest, enemies);
                         break;
                     }
                 }
@@ -603,18 +666,7 @@ public class TileManager : MonoBehaviour
         }
 
         tileMapTiles = new DeepTile[tileMapWidth, tileMapHeight];
-    }
-
-    private void InstantiateTiles()
-    {
-        for(int i = 0; i < mapWidth * 10; i++)
-        {
-            for(int j = 0; j < mapHeight * 10; j++)
-            {
-                DeepTile placeTile = tilePool.GetTile(tileMap[i, j]);
-                placeTile.transform.position = new Vector3(i - mapWidth * 5, -j, 1);
-            }
-        }
+        enemyMapCreatures = new DeepCreature[tileMapWidth, tileMapHeight];
     }
 
     private void UpdateTiles(int x, int y)
@@ -631,204 +683,662 @@ public class TileManager : MonoBehaviour
                         tileMapTiles[i, j] = null;
                     }
                 }
-                else if (tileMapTiles[i,j] == null)
+                else
                 {
-                    tileMapTiles[i,j] = tilePool.GetTile(tileMap[i, j]);
-                    tileMapTiles[i,j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+                    if (tileMapTiles[i, j] == null)
+                    {
+                        tileMapTiles[i, j] = tilePool.GetTile(tileMap[i, j]);
+                        tileMapTiles[i, j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+                    }
+                }
+
+                if (i < x - 10 || i > x + 10 || j < y - 10 || j > y + 10)
+                {
+                    if (enemyMapCreatures[i, j] != null)
+                    {
+                        creaturePool.ReplaceCreature(0, enemyMapCreatures[i, j]);
+                        enemyMapCreatures[i, j] = null;
+                    }
+                }
+                else
+                {
+                    if (enemyMap[i, j] == 1 && enemyMapCreatures[i, j] == null)
+                    {
+                        enemyMapCreatures[i, j] = creaturePool.GetCreature(0);
+                        enemyMapCreatures[i, j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
+                    }
                 }
             }
         }
     }
 
-    private void BuildAirChamber(int x, int y)
+    private void BuildAirChamber(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("AirChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = airChamber[j, i];
+
+                if (i == chestX && placeChest && j > 0 && airChamber[j, i] == 0 && airChamber[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildStraightChamber(int x, int y)
+    private void BuildStraightChamber(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("StraightChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = straightChamber[j, i];
+
+                if (i == chestX && placeChest && j > 0 && straightChamber[j, i] == 0 && straightChamber[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }           
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildWaterChamber(int x, int y)
+    private void BuildWaterChamber(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("WaterChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = waterChamber[j, i];
+
+                if (i == chestX && placeChest && j > 0 && waterChamber[j, i] == 0 && waterChamber[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildBentChamber(int x, int y)
+    private void BuildBentChamber(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("BentChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = bentChamber[j, i];
+
+                if (i == chestX && placeChest && j > 0 && bentChamber[j, i] == 0 && bentChamber[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildSolidChamber(int x, int y)
+    private void BuildSolidChamber(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("SolidChamber");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = solidChamber[j, i];
+
+                if (i == chestX && placeChest && j > 0 && solidChamber[j, i] == 0 && solidChamber[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildUpDownPath(int x, int y)
+    private void BuildUpDownPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("UpDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildLeftRightPath(int x, int y)
+    private void BuildLeftRightPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("LeftRightPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                tileMap[x + i, y + j] = path[j, i];
+                tileMap[x + j, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && i > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildLeftDownPath(int x, int y)
+    private void BuildLeftDownPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("LeftDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildLeftUpPath(int x, int y)
+    private void BuildLeftUpPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("LeftUpPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildRightUpPath(int x, int y)
+    private void BuildRightUpPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("RightUpPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildRightDownPath(int x, int y)
+    private void BuildRightDownPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("RightDownPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildCrossPath(int x, int y)
+    private void BuildCrossPath(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("CrossPath");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = path[j, i];
+
+                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildOverworldLeft(int x, int y)
+    private void BuildOverworldLeft(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("OverLeft");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = overworldLeft[j, i];
+
+                if (i == chestX && placeChest && j > 0 && overworldLeft[j, i] == 0 && overworldLeft[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildOverworldRight(int x, int y)
+    private void BuildOverworldRight(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("OverRight");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = overworldRight[j, i];
+
+                if (i == chestX && placeChest && j > 0 && overworldRight[j, i] == 0 && overworldRight[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildOverworldMiddle(int x, int y)
+    private void BuildOverworldMiddle(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("OverMiddle");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = overworldMiddle[j, i];
+
+                if (i == chestX && placeChest && j > 0 && overworldMiddle[j, i] == 0 && overworldMiddle[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
+            }
+        }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
             }
         }
     }
 
-    private void BuildOverworldOpening(int x, int y)
+    private void BuildOverworldOpening(int x, int y, bool chest, int enemies)
     {
+        bool placeChest = chest;
+        int chestX = Random.Range(2, 8);
+
         Debug.Log("OverOpening");
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 tileMap[x + i, y + j] = overworldOpening[j, i];
+
+                if (i == chestX && placeChest && j > 0 && overworldOpening[j, i] == 0 && overworldOpening[j - 1, i] != 0)
+                {
+                    CreateChest(x + i, y + j - 1);
+                    placeChest = false;
+                }
+
+                enemyMap[x + i, y + j] = 0;
             }
         }
+
+        for (int i = 0; i < enemies; i++)
+        {
+            bool enemyPlaced = false;
+
+            while (!enemyPlaced)
+            {
+                int enemyX = Random.Range(2, 8);
+                int enemyY = Random.Range(2, 8);
+                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                {
+                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyPlaced = true;
+                }
+            }
+        }
+    }
+
+    private void CreateChest(int x, int y)
+    {
+        TreasureChest newChest = Instantiate(treasureChestPrefabs[0], new Vector3(x - mapWidth * 5, -y, 1), Quaternion.identity);
+        newChest.SetGold(250 + 5 * y);
     }
 }

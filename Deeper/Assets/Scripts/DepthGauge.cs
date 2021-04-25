@@ -17,7 +17,7 @@ public class DepthGauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int depth = (int)-dude.transform.position.y;
+        int depth = (int)-dude.transform.position.y - 6;
         if ( depth < 0 )
         {
             depth = 0;

@@ -32,6 +32,11 @@ public class TreasureChest : MonoBehaviour
         }
     }
 
+    public void SetGold(int amount)
+    {
+        gold = amount;
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         DudeController dude = collision.gameObject.GetComponent<DudeController>();
