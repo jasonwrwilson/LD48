@@ -15,7 +15,7 @@ public class DeepCreature : MonoBehaviour
     private float deathTimerCountdown;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         ResetHealth();
     }
@@ -23,7 +23,6 @@ public class DeepCreature : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        Debug.Log("Calling base update");
         if ( deathTimerCountdown > 0 )
         {
             deathTimerCountdown -= Time.deltaTime;
