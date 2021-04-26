@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30717e22884b514a99d298d173a9b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWater: 0
+  isWater: 1
   isAir: 1
 --- !u!61 &6742925316805125805
 BoxCollider2D:

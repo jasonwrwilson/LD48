@@ -22,8 +22,9 @@ public class AvoidanceTrigger : TriggerVolume
 
         if (collidingTile != null)
         {
-            if (!collidingTile.isWater && !collidingTile.isAir)
+            if (!collidingTile.isWater)
             {
+                Debug.Log("Avoid");
                 creature.Avoid();
             }
         }

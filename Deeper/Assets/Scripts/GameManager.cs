@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public DeathPanel deathPanel;
     public GameObject enterPrompt;
     public GameObject quitPanel;
+    public IntroBar introPanel;
 
     public DudeController dude;
 
@@ -97,6 +98,9 @@ public class GameManager : MonoBehaviour
         tileManager.ResetMap();
         dude.ResetDude();
         PauseGame(false);
+
+        introPanel.gameObject.SetActive(true);
+        introPanel.ResetIntro();
     }
 
     private string GetQuip(DeathType deathType)
@@ -160,5 +164,10 @@ public class GameManager : MonoBehaviour
         {
             recordDepth = PlayerPrefs.GetInt("RecordDepth");
         }
+    }
+
+    public int GetRecordDepth()
+    {
+        return recordDepth;
     }
 }

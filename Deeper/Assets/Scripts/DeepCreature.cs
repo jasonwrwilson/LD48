@@ -16,6 +16,9 @@ public class DeepCreature : MonoBehaviour
 
     public int bones;
 
+    public float flashTimer;
+    private float flashTimerCountdown;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -25,6 +28,20 @@ public class DeepCreature : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (flashTimerCountdown > 0 )
+        {
+            flashTimerCountdown -= Time.deltaTime;
+            if (flashTimerCountdown <= 0)
+            {
+                flashTimerCountdown = 0;
+            }
+            Color c = spriteRenderer.color;
+            c.b = (flashTimer - flashTimerCountdown) / flashTimer;
+            c.g = (flashTimer - flashTimerCountdown) / flashTimer;
+
+            spriteRenderer.color = c;
+        }
+
         if ( deathTimerCountdown > 0 )
         {
             deathTimerCountdown -= Time.deltaTime;
@@ -69,6 +86,10 @@ public class DeepCreature : MonoBehaviour
         {
             spriteAnimator.SetTrigger("Dead");
             deathTimerCountdown = deathTimer;
+        }
+        else
+        {
+            flashTimerCountdown = flashTimer;
         }
     }
 

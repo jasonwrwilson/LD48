@@ -705,9 +705,9 @@ public class TileManager : MonoBehaviour
                 }
                 else
                 {
-                    if (enemyMap[i, j] == 1 && enemyMapCreatures[i, j] == null)
+                    if (enemyMap[i, j] >= 0 && enemyMapCreatures[i, j] == null)
                     {
-                        enemyMapCreatures[i, j] = creaturePool.GetCreature(0);
+                        enemyMapCreatures[i, j] = creaturePool.GetCreature(enemyMap[i, j]);
                         enemyMapCreatures[i, j].transform.position = new Vector3(i - mapWidth * 5, -j, 1);
                         enemyMapCreatures[i, j].MultiplyHealth(Mathf.Max(1, (int)((j - 3) / 10)));
                     }
@@ -729,7 +729,7 @@ public class TileManager : MonoBehaviour
                 }
                 if (enemyMapCreatures[i, j] != null)
                 {
-                    creaturePool.ReplaceCreature(0, enemyMapCreatures[i, j]);
+                    creaturePool.ReplaceCreature(enemyMap[i,j], enemyMapCreatures[i, j]);
                     enemyMapCreatures[i, j] = null;
                 }
             }
@@ -761,7 +761,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -773,9 +773,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -799,7 +799,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }           
         }
 
@@ -811,9 +811,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -837,7 +837,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -849,9 +849,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -875,7 +875,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -887,9 +887,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -913,7 +913,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -925,9 +925,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -951,7 +951,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -963,9 +963,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -989,7 +989,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1001,9 +1001,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1027,7 +1027,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1039,9 +1039,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1065,7 +1065,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1077,9 +1077,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1097,13 +1097,13 @@ public class TileManager : MonoBehaviour
             {
                 tileMap[x + i, y + j] = path[j, i];
 
-                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                if (i == chestX && placeChest && j > -1 && path[j, i] == 0 && path[j - 1, i] != 0)
                 {
                     CreateChest(x + i, y + j - 1);
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1115,9 +1115,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1135,13 +1135,13 @@ public class TileManager : MonoBehaviour
             {
                 tileMap[x + i, y + j] = path[j, i];
 
-                if (i == chestX && placeChest && j > 0 && path[j, i] == 0 && path[j - 1, i] != 0)
+                if (i == chestX && placeChest && j > -1 && path[j, i] == 0 && path[j - 1, i] != 0)
                 {
                     CreateChest(x + i, y + j - 1);
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1153,9 +1153,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1179,7 +1179,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1191,9 +1191,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1217,7 +1217,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1229,9 +1229,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1255,7 +1255,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1267,9 +1267,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1293,7 +1293,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1305,9 +1305,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
@@ -1331,7 +1331,7 @@ public class TileManager : MonoBehaviour
                     placeChest = false;
                 }
 
-                enemyMap[x + i, y + j] = 0;
+                enemyMap[x + i, y + j] = -1;
             }
         }
 
@@ -1343,9 +1343,9 @@ public class TileManager : MonoBehaviour
             {
                 int enemyX = Random.Range(2, 8);
                 int enemyY = Random.Range(2, 8);
-                if (enemyMap[x + enemyX, y + enemyY] == 0 && tileMap[x + enemyX, y + enemyY] == 1)
+                if (enemyMap[x + enemyX, y + enemyY] == -1 && tileMap[x + enemyX, y + enemyY] == 1)
                 {
-                    enemyMap[x + enemyX, y + enemyY] = 1;
+                    enemyMap[x + enemyX, y + enemyY] = Random.Range(0, 2);
                     enemyPlaced = true;
                 }
             }
