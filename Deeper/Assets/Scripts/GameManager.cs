@@ -101,6 +101,9 @@ public class GameManager : MonoBehaviour
 
         introPanel.gameObject.SetActive(true);
         introPanel.ResetIntro();
+
+        UpgradeManager upgradeManager = GetComponent<UpgradeManager>();
+        upgradeManager.ResetUpgrades();
     }
 
     private string GetQuip(DeathType deathType)

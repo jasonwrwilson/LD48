@@ -230,7 +230,7 @@ public class DudeController : MonoBehaviour
                     spriteRenderer.flipX = false;
                     facingLeft = false;
                 }
-                else
+                else if (horizontalMovement <0)
                 {
                     spriteRenderer.flipX = true;
                     facingLeft = true;
@@ -316,7 +316,7 @@ public class DudeController : MonoBehaviour
                         spriteRenderer.flipX = false;
                         facingLeft = false;
                     }
-                    else
+                    else if (horizontalMovement < 0)
                     {
                         spriteRenderer.flipX = true;
                         facingLeft = true;
